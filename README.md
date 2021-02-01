@@ -1,1 +1,7 @@
-# goit-react-hw-07-phonebook
+# Choose a branch
+
+main --> React-Redax
+
+...
+
+toolkit --> Redux Toolkit

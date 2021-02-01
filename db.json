@@ -1,0 +1,40 @@
+{
+  "contacts": [
+    {
+      "name": "Mango",
+      "number": "123456789",
+      "completed": false,
+      "id": 1
+    },
+    {
+      "name": "React",
+      "number": "987654321",
+      "completed": false,
+      "id": 2
+    },
+    {
+      "name": "Redux",
+      "number": "159753",
+      "completed": false,
+      "id": 3
+    },
+    {
+      "name": "JavaScript",
+      "number": "357951",
+      "completed": false,
+      "id": 4
+    },
+    {
+      "name": "HTML",
+      "number": "123654789",
+      "completed": false,
+      "id": 5
+    },
+    {
+      "name": "CSS",
+      "number": "987654321",
+      "completed": false,
+      "id": 6
+    }
+  ]
+}
