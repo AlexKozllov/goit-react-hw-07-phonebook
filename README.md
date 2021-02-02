@@ -4,4 +4,12 @@ main --> React-Redax
 
 ...
 
-toolkit --> Redux Toolkit
+useHooks --> Redux Hooks
+
+# Resources
+
+http://localhost:2000/contacts
+
+# Home
+
+http://localhost:2000
