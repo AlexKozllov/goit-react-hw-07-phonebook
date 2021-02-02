@@ -1,120 +1,107 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { CSSTransition } from "react-transition-group";
 
 import Alert from "../alert/Alert";
 
 import s from "./contactForm.module.css";
 import shiftAlert from "../animation/shiftAlert.module.css";
-import { connect } from "react-redux";
+import { connect, useDispatch, useSelector } from "react-redux";
 import { addContact } from "../../redux/operations/phBookOperations";
 import { getListContacts } from "../../redux/contactsSelectors";
 
 const InitialState = {
   name: "",
   number: "",
-  validateForm: true,
-  isExistContact: false,
 };
-class ContactForm extends Component {
-  state = InitialState;
 
-  handleInput = (e) => {
+const ContactForm = () => {
+  const [contact, setContact] = useState({ ...InitialState });
+  const [isValidateForm, setIsValidateForm] = useState(true);
+  const [isExistContact, setIsExistContact] = useState(false);
+
+  const listContact = useSelector((state) => getListContacts(state));
+
+  const dispatch = useDispatch();
+
+  const handleInput = (e) => {
     const { name, value } = e.target;
-    this.setState({
-      [name]: value,
-    });
-  };
-  handleSubmit = (e) => {
-    e.preventDefault();
-    const { addContact } = this.props;
-    const { name, number } = this.state;
-    const isValidateForm = this.validateForm();
-    if (!isValidateForm) return;
-    addContact({ name, number });
-    this.setState(InitialState);
+    setContact((prev) => ({ ...prev, [name]: value }));
   };
 
-  onCheckUnique = (name) => {
-    const { listContacts } = this.props;
-    const isExistContact = !!listContacts.find(
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const isValidateForm = validateForm();
+    if (!isValidateForm) return;
+    dispatch(addContact({ ...contact }));
+    setContact({ ...InitialState });
+  };
+
+  const onCheckUnique = (name) => {
+    const isExistContact = !!listContact.find(
       (item) => item.name.toLowerCase() === name.toLowerCase()
     );
-    isExistContact
-      ? this.setState({ isExistContact: true })
-      : this.setState({ isExistContact: false });
 
+    isExistContact ? setIsExistContact(true) : setIsExistContact(false);
     return !isExistContact;
   };
 
-  validateForm = () => {
-    const { name, number } = this.state;
+  const validateForm = () => {
+    const { name, number } = contact;
     if (!name || !number) {
-      this.setState({ validateForm: false });
+      setIsValidateForm(false);
+      console.log("ListItem");
       return false;
     }
     if (!!name && !!number) {
-      this.setState({ validateForm: true });
+      setIsValidateForm(true);
     }
-    return this.onCheckUnique(name);
+    return onCheckUnique(name);
   };
 
-  render() {
-    const { isExistContact } = this.state;
-    const { name, number, validateForm } = this.state;
-    return (
-      <>
-        <CSSTransition
-          in={isExistContact}
-          classNames={shiftAlert}
-          timeout={250}
-          unmountOnExit
-        >
-          <Alert text="Contact is already exist" />
-        </CSSTransition>
-        <CSSTransition
-          in={!validateForm}
-          classNames={shiftAlert}
-          timeout={250}
-          unmountOnExit
-        >
-          <Alert text="Some filed is empty" />
-        </CSSTransition>
-        <form className={s.contactForm} onSubmit={this.handleSubmit}>
-          <label>
-            Name
-            <input
-              type="text"
-              name="name"
-              value={name}
-              onChange={this.handleInput}
-            ></input>
-          </label>
-          <label>
-            Number
-            <input
-              type="tel"
-              name="number"
-              value={number}
-              onChange={this.handleInput}
-            ></input>
-          </label>
-          <button className={s.addBtn} type="submit">
-            Add contact
-          </button>
-        </form>
-      </>
-    );
-  }
-}
-
-const mapStateToProps = (state, ownProps) => {
-  return {
-    listContacts: getListContacts(state),
-  };
+  return (
+    <>
+      <CSSTransition
+        in={isExistContact}
+        classNames={shiftAlert}
+        timeout={250}
+        unmountOnExit
+      >
+        <Alert text="Contact is already exist" />
+      </CSSTransition>
+      <CSSTransition
+        in={!isValidateForm}
+        classNames={shiftAlert}
+        timeout={250}
+        unmountOnExit
+      >
+        <Alert text="Some filed is empty" />
+      </CSSTransition>
+      <form className={s.contactForm} onSubmit={handleSubmit}>
+        <label>
+          Name
+          <input
+            type="text"
+            name="name"
+            value={contact.name}
+            onChange={handleInput}
+          ></input>
+        </label>
+        <label>
+          Number
+          <input
+            type="tel"
+            name="number"
+            value={contact.number}
+            onChange={handleInput}
+          ></input>
+        </label>
+        <button className={s.addBtn} type="submit">
+          Add contact
+        </button>
+      </form>
+    </>
+  );
 };
 
-const mapDispatchToProps = {
-  addContact,
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
+export default ContactForm;
