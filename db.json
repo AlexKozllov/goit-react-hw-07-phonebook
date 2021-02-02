@@ -3,25 +3,21 @@
     {
       "name": "Redux",
       "number": "159753",
-      "completed": false,
-      "id": 3
+          "id": 3
     },
     {
       "name": "JavaScript",
       "number": "357951",
-      "completed": false,
       "id": 4
     },
     {
       "name": "HTML",
       "number": "123654789",
-      "completed": false,
       "id": 5
     },
     {
       "name": "CSS",
       "number": "123548",
-      "completed": false,
       "id": 6
     }
   ]
