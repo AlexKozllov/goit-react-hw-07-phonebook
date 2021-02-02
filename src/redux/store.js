@@ -2,10 +2,10 @@ import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
 import { combineReducers } from "redux";
 
 import thunk from "redux-thunk";
-import { phBookRedusers, loading } from "./redusers/phBookRedusers";
+import { contactsReusers, loading } from "./redusers/phBookRedusers";
 
 const rootReducer = combineReducers({
-  contacts: phBookRedusers,
+  contacts: contactsReusers,
   loading,
 });
 

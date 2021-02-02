@@ -6,7 +6,8 @@ import Alert from "../alert/Alert";
 import s from "./contactForm.module.css";
 import shiftAlert from "../animation/shiftAlert.module.css";
 import { connect } from "react-redux";
-import { addContacts } from "../../redux/operations/phBookOperations";
+import { addContact } from "../../redux/operations/phBookOperations";
+import { getListContacts } from "../../redux/contactsSelectors";
 
 const InitialState = {
   name: "",
@@ -25,11 +26,11 @@ class ContactForm extends Component {
   };
   handleSubmit = (e) => {
     e.preventDefault();
-    const { addContacts } = this.props;
+    const { addContact } = this.props;
     const { name, number } = this.state;
     const isValidateForm = this.validateForm();
     if (!isValidateForm) return;
-    addContacts({ name, number });
+    addContact({ name, number });
     this.setState(InitialState);
   };
 
@@ -108,18 +109,12 @@ class ContactForm extends Component {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    listContacts: state.contacts.items,
+    listContacts: getListContacts(state),
   };
 };
 
 const mapDispatchToProps = {
-  addContacts,
+  addContact,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactForm);
-
-// const Form = styled.form`
-//   input {
-//     display: block;
-//   }
-// `;

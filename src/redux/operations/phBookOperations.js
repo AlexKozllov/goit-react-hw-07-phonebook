@@ -4,26 +4,25 @@ import {
   removeContact,
 } from "../../servises/fatchToDB";
 import {
-  addContactsError,
-  addContactsRequest,
-  addContactsSuccess,
+  addContactError,
+  addContactRequest,
+  addContactSuccess,
   getContactsRequest,
   getContactsSuccess,
   getContactsError,
-  removeContactsError,
-  removeContactsSuccess,
-  removeContactsRequest,
+  removeContactError,
+  removeContactSuccess,
+  removeContactRequest,
 } from "../actions/phBookActions";
 
-const addContacts = (contacts) => (dispatch) => {
-  dispatch(addContactsRequest());
+const addContact = (contacts) => (dispatch) => {
+  dispatch(addContactRequest());
 
   postContacts(contacts)
     .then((data) => {
-      //   console.log("data", data);
-      dispatch(addContactsSuccess(data));
+      dispatch(addContactSuccess(data));
     })
-    .catch((error) => dispatch(addContactsError(error)));
+    .catch((error) => dispatch(addContactError(error)));
 };
 
 const getContactsList = () => (dispatch) => {
@@ -37,13 +36,13 @@ const getContactsList = () => (dispatch) => {
     .catch((error) => dispatch(getContactsError(error)));
 };
 
-const removeContactsFromList = (id) => (dispatch) => {
-  dispatch(removeContactsRequest());
+const removeContactFromList = (id) => (dispatch) => {
+  dispatch(removeContactRequest());
   removeContact(id)
     .then(() => {
-      dispatch(removeContactsSuccess(id));
+      dispatch(removeContactSuccess(id));
     })
-    .catch((error) => dispatch(removeContactsError(error)));
+    .catch((error) => dispatch(removeContactError(error)));
 };
 
-export { addContacts, getContactsList, removeContactsFromList };
+export { addContact, getContactsList, removeContactFromList };

@@ -3,9 +3,8 @@ import axios from "axios";
 axios.defaults.baseURL = "http://localhost:2000";
 
 const postContacts = async (contacts) => {
-  const newContacts = { ...contacts, completed: false };
   try {
-    return await axios.post("/contacts", newContacts).then(({ data }) => data);
+    return await axios.post("/contacts", contacts).then(({ data }) => data);
   } catch (error) {
     console.log("error", { error });
     return error;

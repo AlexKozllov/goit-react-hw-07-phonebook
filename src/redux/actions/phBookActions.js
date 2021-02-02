@@ -1,28 +1,28 @@
 import { createAction } from "@reduxjs/toolkit";
 
-const addContactsRequest = createAction("@phBook/addRequest");
-const addContactsSuccess = createAction("@phBook/addSuccess");
-const addContactsError = createAction("@phBook/addErrror");
+const addContactRequest = createAction("@phBook/addRequest");
+const addContactSuccess = createAction("@phBook/addSuccess");
+const addContactError = createAction("@phBook/addErrror");
 
 const getContactsRequest = createAction("@phBook/getRequest");
 const getContactsSuccess = createAction("@phBook/getSuccess");
 const getContactsError = createAction("@phBook/getErrror");
 
-const removeContactsRequest = createAction("@phBook/removeRequest");
-const removeContactsSuccess = createAction("@phBook/removeSuccess");
-const removeContactsError = createAction("@phBook/removeErrror");
+const removeContactRequest = createAction("@phBook/removeRequest");
+const removeContactSuccess = createAction("@phBook/removeSuccess");
+const removeContactError = createAction("@phBook/removeErrror");
 
 const setFilter = createAction("@phBook/setFilter");
 
 export {
-  addContactsSuccess,
-  addContactsRequest,
-  addContactsError,
+  addContactRequest,
+  addContactSuccess,
+  addContactError,
   getContactsRequest,
   getContactsSuccess,
   getContactsError,
-  removeContactsRequest,
-  removeContactsSuccess,
-  removeContactsError,
+  removeContactRequest,
+  removeContactSuccess,
+  removeContactError,
   setFilter,
 };

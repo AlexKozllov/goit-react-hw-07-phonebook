@@ -5,29 +5,23 @@ import s from "./contactList.module.css";
 import shiftAnimation from "../animation/shiftAnimation.module.css";
 import { connect } from "react-redux";
 import Filter from "../filter/Filter";
-import { removeContactsFromList } from "../../redux/operations/phBookOperations";
+import { removeContactFromList } from "../../redux/operations/phBookOperations";
 
 import scaleAnimation from "../animation/scaleAnimation.module.css";
-import Loader from "../loader/Loader";
+import {
+  getFilter,
+  getVisibleContacts,
+  getListContacts,
+} from "../../redux/contactsSelectors";
 
 const ContactList = ({
   listContacts,
+  visibleContacts,
   filter,
-  removeContactsFromList,
-  isloading,
+  removeContactFromList,
 }) => {
-  const getVisibleContacts = (filter) => {
-    if (!!filter) {
-      return listContacts.filter((contact) =>
-        contact.name.toLocaleLowerCase().includes(filter.toLocaleLowerCase())
-      );
-    } else return listContacts;
-  };
-
-  const visibleContacts = getVisibleContacts(filter);
   return (
     <>
-      {isloading && <Loader />}
       <CSSTransition
         in={listContacts.length > 1}
         classNames={scaleAnimation}
@@ -50,7 +44,7 @@ const ContactList = ({
               <button
                 type="button"
                 onClick={() => {
-                  removeContactsFromList(item.id);
+                  removeContactFromList(item.id);
                 }}
               >
                 &#215;
@@ -63,12 +57,15 @@ const ContactList = ({
   );
 };
 
-const mapStateToProps = (state, ownProps) => ({
-  listContacts: state.contacts.items,
-  filter: state.contacts.filter,
-  isloading: state.loading,
-});
+const mapStateToProps = (state, ownProps) => {
+  console.log("state", state);
+  return {
+    listContacts: getListContacts(state),
+    visibleContacts: getVisibleContacts(state),
+    filter: getFilter(state),
+  };
+};
 
-const mapDispatchToProps = { removeContactsFromList };
+const mapDispatchToProps = { removeContactFromList };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ContactList);

@@ -1,18 +1,6 @@
 {
   "contacts": [
     {
-      "name": "Mango",
-      "number": "123456789",
-      "completed": false,
-      "id": 1
-    },
-    {
-      "name": "React",
-      "number": "987654321",
-      "completed": false,
-      "id": 2
-    },
-    {
       "name": "Redux",
       "number": "159753",
       "completed": false,
@@ -32,7 +20,7 @@
     },
     {
       "name": "CSS",
-      "number": "987654321",
+      "number": "123548",
       "completed": false,
       "id": 6
     }

@@ -1,55 +1,40 @@
-import { createReducer } from "@reduxjs/toolkit";
+import { combineReducers, createReducer } from "@reduxjs/toolkit";
 import {
-  addContactsError,
-  addContactsRequest,
-  addContactsSuccess,
+  addContactRequest,
+  addContactSuccess,
+  addContactError,
   getContactsRequest,
   getContactsSuccess,
   getContactsError,
-  removeContactsRequest,
-  removeContactsSuccess,
-  removeContactsError,
-
-  // addContacts,
+  removeContactRequest,
+  removeContactSuccess,
+  removeContactError,
   setFilter,
 } from "../actions/phBookActions";
 
-const initialState = {
-  items: [],
-  filter: "",
-};
-
-const phBookRedusers = createReducer(initialState, {
-  [addContactsSuccess]: (state, action) => ({
-    ...state,
-    items: [action.payload, ...state.items],
-  }),
-  [getContactsSuccess]: (state, action) => ({
-    ...state,
-    items: [...action.payload],
-  }),
-
-  [removeContactsSuccess]: (state, action) => ({
-    ...state,
-    items: state.items.filter((item) => item.id !== action.payload),
-  }),
-
-  [setFilter]: (state, action) => ({
-    ...state,
-    filter: action.payload,
-  }),
+const items = createReducer([], {
+  [addContactSuccess]: (state, action) => [action.payload, ...state],
+  [getContactsSuccess]: (state, action) => [...action.payload],
+  [removeContactSuccess]: (state, action) => [
+    ...state.filter((item) => item.id !== action.payload),
+  ],
+});
+const filter = createReducer("", {
+  [setFilter]: (state, action) => action.payload,
 });
 
 const loading = createReducer(false, {
-  [addContactsRequest]: () => true,
-  [addContactsSuccess]: () => false,
-  [addContactsError]: () => false,
+  [addContactRequest]: () => true,
+  [addContactSuccess]: () => false,
+  [addContactError]: () => false,
   [getContactsRequest]: () => true,
   [getContactsSuccess]: () => false,
   [getContactsError]: () => false,
-  [removeContactsRequest]: () => true,
-  [removeContactsSuccess]: () => false,
-  [removeContactsError]: () => false,
+  [removeContactRequest]: () => true,
+  [removeContactSuccess]: () => false,
+  [removeContactError]: () => false,
 });
 
-export { phBookRedusers, loading };
+const contactsReusers = combineReducers({ items, filter });
+
+export { contactsReusers, loading };
