@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { CSSTransition } from "react-transition-group";
-import { connect, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getContactsList } from "../redux/operations/phBookOperations";
 import { getLoading } from "../redux/contactsSelectors";
 
@@ -12,8 +12,9 @@ import s from "./app.module.css";
 import shiftAppear from "./animation/shiftAppear.module.css";
 import ModalLoader from "./loader/ModalLoader";
 
-const App = ({ isLoading }) => {
+const App = () => {
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => getLoading(state));
 
   useEffect(() => {
     dispatch(getContactsList());
@@ -39,6 +40,4 @@ const App = ({ isLoading }) => {
   );
 };
 
-const mapStateToProps = (state) => ({ isLoading: getLoading(state) });
-
-export default connect(mapStateToProps)(App);
+export default App;

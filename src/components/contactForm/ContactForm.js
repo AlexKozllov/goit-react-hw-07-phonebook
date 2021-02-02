@@ -1,11 +1,12 @@
-import React, { Component, useState } from "react";
+import React, { useState } from "react";
 import { CSSTransition } from "react-transition-group";
+import { useDispatch, useSelector } from "react-redux";
 
 import Alert from "../alert/Alert";
 
 import s from "./contactForm.module.css";
 import shiftAlert from "../animation/shiftAlert.module.css";
-import { connect, useDispatch, useSelector } from "react-redux";
+
 import { addContact } from "../../redux/operations/phBookOperations";
 import { getListContacts } from "../../redux/contactsSelectors";
 

@@ -1,13 +1,15 @@
 import React from "react";
-import { connect } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setFilter } from "../../redux/actions/phBookActions";
 
 import s from "./filter.module.css";
 
-const Filter = ({ filterValue, setFilter }) => {
+const Filter = ({ filterValue }) => {
+  const dispatch = useDispatch();
+
   const hendleFilter = (e) => {
     const { value } = e.target;
-    setFilter(value);
+    dispatch(setFilter(value));
   };
   return (
     <form className={s.findField}>
@@ -17,8 +19,4 @@ const Filter = ({ filterValue, setFilter }) => {
   );
 };
 
-const mapDispatchToProps = {
-  setFilter,
-};
-
-export default connect(null, mapDispatchToProps)(Filter);
+export default Filter;
